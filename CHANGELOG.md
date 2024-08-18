@@ -1,4 +1,4 @@
-## 版本记录
+## 版本日志
 
 #### v2.2.0：2024-7-12
 * 更新CameraScan至v1.2.0
@@ -17,7 +17,7 @@
 * 更新ViewfinderView至v1.1.0
 
 #### v2.0.0：2023-8-14
-* **wechat-qrcode-scanning** 和 **opencv-qrcode-scanning** 中移除原依赖（**mlkit-camera-core**），现改为依赖[CameraScan](https://github.com/jenly1314/CameraScan)
+* **wechat-qrcode-scanning** 和 **opencv-qrcode-scanning** 中移除原依赖（ **mlkit-camera-core** ），现改为依赖[CameraScan](https://github.com/jenly1314/CameraScan)
 * **wechat-qrcode-scanning** 和 **opencv-qrcode-scanning** 添加默认依赖[ViewfinderView](https://github.com/jenly1314/ViewfinderView)
 * 优化扫描分析过程的性能体验（优化帧数据分析过程）
 
