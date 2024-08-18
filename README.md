@@ -175,14 +175,14 @@ WeChatQRCodeDetector.init(context)
 
 #### WeChat QRCode
 
-识别二维码 （**wechat-qrcode**中的WeChatQRCodeDetector）
+识别二维码 （ **wechat-qrcode** 中的WeChatQRCodeDetector）
 ```kotlin
 //识别二维码；results是一个List<String>集合，可能会有多个结果，如果只识别一个码，可以取List中第0个就可以
 val results = WeChatQRCodeDetector.detectAndDecode(bitmap)
 
 ```
 
-识别二维码并返回二维码位置信息 （**wechat-qrcode**中的WeChatQRCodeDetector）
+识别二维码并返回二维码位置信息 （ **wechat-qrcode** 中的WeChatQRCodeDetector）
 ```kotlin
 // 检测结果：二维码的位置信息
 val points = ArrayList<Mat>()
@@ -200,7 +200,7 @@ points.forEach { mat ->
 
 #### OpenCV QRCode
 
-识别二维码 （**opencv-qrcode**中的OpenCVQRCodeDetector）
+识别二维码 （ **opencv-qrcode** 中的OpenCVQRCodeDetector）
 ```kotlin
 val openCVQRCodeDetector = OpenCVQRCodeDetector()
 //识别二维码
@@ -208,7 +208,7 @@ val results = openCVQRCodeDetector.detectAndDecode(bitmap)
 
 ```
 
-识别二维码并返回二维码位置信息 （**opencv-qrcode**中的OpenCVQRCodeDetector）
+识别二维码并返回二维码位置信息 （ **opencv-qrcode** 中的OpenCVQRCodeDetector）
 ```kotlin
 // 检测结果：二维码的位置信息
 val points = Mat()
@@ -319,7 +319,7 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
 
 从2.0.0版本开始 **wechat-qrcode-scanning** 和 **opencv-qrcode-scanning** 都是以[CameraScan](https://github.com/jenly1314/CameraScan)作为基础库去实现具体的分析检测功能，所以关于 **CameraScan** 的使用和自定义扫码界面布局都完全遵循[CameraScan](https://github.com/jenly1314/CameraScan) 的使用方式。
 
-> 关于**CameraScan**的使用，你可以直接去看[CameraScan](https://github.com/jenly1314/CameraScan)的使用说明；
+> 关于 **CameraScan** 的使用，你可以直接去看[CameraScan](https://github.com/jenly1314/CameraScan)的使用说明；
 
 > 关于扫描框动画，你可以查看[ViewfinderView](https://github.com/jenly1314/ViewfinderView)的使用说明；
 
@@ -403,8 +403,8 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
 * 更新ViewfinderView至v1.1.0
 
 #### v2.0.0：2023-8-14
-* **wechat-qrcode-scanning** 和 **opencv-qrcode-scanning** 中移除原依赖（ **mlkit-camera-core** ），现改为依赖[CameraScan](https://github.com/jenly1314/CameraScan)
-* **wechat-qrcode-scanning** 和 **opencv-qrcode-scanning** 添加默认依赖[ViewfinderView](https://github.com/jenly1314/ViewfinderView)
+* wechat-qrcode-scanning和opencv-qrcode-scanning中移除原依赖（mlkit-camera-core），现改为依赖[CameraScan](https://github.com/jenly1314/CameraScan)
+* wechat-qrcode-scanning和opencv-qrcode-scanning添加默认依赖[ViewfinderView](https://github.com/jenly1314/ViewfinderView)
 * 优化扫描分析过程的性能体验（优化帧数据分析过程）
 
 #### v1.3.0：2023-4-16
