@@ -8,3 +8,15 @@ plugins {
     id 'org.jetbrains.dokka' version '1.9.20'
     id 'com.vanniktech.maven.publish' version '0.25.3' apply false
 }
+allprojects {
+    repositories {
+        maven {
+            url 'https://maven.aliyun.com/nexus/content/repositories/releases/'
+        }
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/central' }
+        google()
+        mavenCentral()
+    }
+}
