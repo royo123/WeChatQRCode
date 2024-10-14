@@ -29,6 +29,14 @@
         <activity android:name=".OpenCVQRCodeActivity"
             android:theme="@style/CameraScanTheme"
             android:screenOrientation="portrait"/>
+
+        <activity android:name="com.king.zxing.app.FullScreenQRCodeScanActivity"
+            android:theme="@style/CameraScanTheme"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".zxing.QRCodeScanActivity"
+            android:theme="@style/CameraScanTheme"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

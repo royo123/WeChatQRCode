@@ -74,4 +74,6 @@ dependencies {
 
     implementation project(path: ':wechat-qrcode')
     implementation project(path: ':wechat-qrcode-scanning')
+
+    implementation project(path: ':zxing-lite')
 }

@@ -13,6 +13,10 @@ import com.king.camera.scan.CameraScan
 import com.king.logx.LogX
 import com.king.opencv.qrcode.OpenCVQRCodeDetector
 import com.king.wechat.qrcode.WeChatQRCodeDetector
+import com.king.wechat.qrcode.app.zxing.MainActivity
+import com.king.wechat.qrcode.app.zxing.QRCodeScanActivity
+import com.king.zxing.app.FullScreenQRCodeScanActivity
+import com.king.zxing.util.CodeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -85,17 +89,16 @@ class MainActivity : AppCompatActivity() {
                             LogX.d("result = null")
                         }
                     } else {
-                        val result = withContext(Dispatchers.IO) {
-                            // 通过OpenCVQRCodeDetector识别图片中的二维码
-                            openCVQRCodeDetector.detectAndDecode(bitmap)
-                        }
-
-                        if (!result.isNullOrEmpty()) {// 不为空，则表示识别成功
-                            LogX.d("result: $result")
-                            Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show()
-                        } else {
-                            // 为空表示识别失败
-                            LogX.d("result = null")
+                        // zxing 识别
+                        try {
+                            val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, data.data)
+                            val result = CodeUtils.parseCode(bitmap)
+                            LogX.d("result$result:$result")
+                            if (result != null) {
+                                Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show()
+                            }
+                        } catch (e: java.lang.Exception) {
+                            e.printStackTrace()
                         }
                     }
 
@@ -135,9 +138,9 @@ class MainActivity : AppCompatActivity() {
     fun onClick(view: View) {
         when (view.id) {
             R.id.btnWeChatQRCodeScan -> startActivityForResult(WeChatQRCodeActivity::class.java)
-            R.id.btnWeChatMultiQRCodeScan -> startActivityForResult(WeChatMultiQRCodeActivity::class.java)
+            R.id.btnZXingFullScreenQRCode -> startActivityForResult(FullScreenQRCodeScanActivity::class.java)
             R.id.btnWeChatQRCodeDecode -> pickPhotoClicked(true)
-            R.id.btnOpenCVQRCodeScan -> startActivityForResult(OpenCVQRCodeActivity::class.java)
+            R.id.btnZXingQRCode -> startActivityForResult(QRCodeScanActivity::class.java)
             R.id.btnOpenCVQRCodeDecode -> pickPhotoClicked(false)
         }
     }

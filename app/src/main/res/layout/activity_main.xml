@@ -11,7 +11,7 @@
         android:id="@+id/btnWeChatQRCodeScan"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="WeChat\nQRCode Scanning"
+        android:text="微信\n全屏二维码识别"
         android:textAllCaps="false"
         android:onClick="onClick"
         android:layout_marginTop="60dp"
@@ -19,10 +19,10 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <Button
-        android:id="@+id/btnWeChatMultiQRCodeScan"
+        android:id="@+id/btnZXingFullScreenQRCode"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="WeChat\nMultiple QRCode Scanning"
+        android:text="ZXing\n全屏二维码识别"
         android:textAllCaps="false"
         android:onClick="onClick"
         android:layout_marginTop="20dp"
@@ -33,18 +33,18 @@
         android:id="@+id/btnWeChatQRCodeDecode"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="WeChat\nQRCode recognition from image"
+        android:text="微信\n从相册识别二维码"
         android:textAllCaps="false"
         android:onClick="onClick"
         android:layout_marginTop="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnWeChatMultiQRCodeScan" />
+        app:layout_constraintTop_toBottomOf="@+id/btnZXingFullScreenQRCode" />
     <Button
-        android:id="@+id/btnOpenCVQRCodeScan"
+        android:id="@+id/btnZXingQRCode"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="OpenCV\nQRCode Scanning"
+        android:text="ZXing\n框选区域二维码识别"
         android:textAllCaps="false"
         android:onClick="onClick"
         android:layout_marginTop="20dp"
@@ -56,12 +56,12 @@
         android:id="@+id/btnOpenCVQRCodeDecode"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="OpenCV\nQRCode recognition from image"
+        android:text="ZXing\n从相册识别二维码"
         android:textAllCaps="false"
         android:onClick="onClick"
         android:layout_marginTop="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnOpenCVQRCodeScan" />
+        app:layout_constraintTop_toBottomOf="@+id/btnZXingQRCode" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

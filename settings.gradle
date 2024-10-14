@@ -32,3 +32,4 @@ include ':wechat-qrcode'
 include ':wechat-qrcode-scanning'
 
 
+include ':zxing-lite'

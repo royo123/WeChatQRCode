@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">wechat-qrcode</string>
+    <string name="tips_scan_qr_code">将二维码放在框内即可自动识别</string>
 </resources>
