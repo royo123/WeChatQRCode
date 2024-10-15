@@ -25,6 +25,7 @@ class WeChatQRCodeActivity : WeChatCameraScanActivity() {
     override fun initUI() {
         super.initUI()
         ivResult = findViewById(R.id.ivResult)
+        MainActivity.startTime = System.currentTimeMillis()
     }
 
     override fun onScanResultCallback(result: AnalyzeResult<List<String>>) {

@@ -9,6 +9,7 @@ import com.king.camera.scan.CameraScan
 import com.king.camera.scan.analyze.Analyzer
 import com.king.camera.scan.util.PointUtils
 import com.king.view.viewfinderview.ViewfinderView.ViewfinderStyle
+import com.king.wechat.qrcode.app.MainActivity
 import com.king.zxing.DecodeConfig
 import com.king.zxing.DecodeFormatManager
 import com.king.zxing.BarcodeCameraScanActivity
@@ -28,7 +29,7 @@ class FullScreenQRCodeScanActivity : BarcodeCameraScanActivity() {
 
         // 设置取景框样式
         viewfinderView.setViewfinderStyle(ViewfinderStyle.POPULAR)
-
+        MainActivity.startTime = System.currentTimeMillis()
     }
 
 

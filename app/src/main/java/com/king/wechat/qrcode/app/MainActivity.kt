@@ -13,7 +13,8 @@ import com.king.camera.scan.CameraScan
 import com.king.logx.LogX
 import com.king.opencv.qrcode.OpenCVQRCodeDetector
 import com.king.wechat.qrcode.WeChatQRCodeDetector
-import com.king.wechat.qrcode.app.zxing.MainActivity
+import com.king.wechat.qrcode.app.dialog.CommonResultDialog
+import com.king.wechat.qrcode.app.dialog.DialogConfig
 import com.king.wechat.qrcode.app.zxing.QRCodeScanActivity
 import com.king.zxing.app.FullScreenQRCodeScanActivity
 import com.king.zxing.util.CodeUtils
@@ -70,6 +71,7 @@ class MainActivity : AppCompatActivity() {
     private fun processPickPhotoResult(data: Intent?) {
         data?.let {
             try {
+                startTime = System.currentTimeMillis()
                 lifecycleScope.launch {
                     val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, it.data)
                     if (useWeChatDetect) {
@@ -84,6 +86,7 @@ class MainActivity : AppCompatActivity() {
                             }
                             // 一般需求都是识别一个码，所以这里取第0个就可以；有识别多个码的需求，可以取全部
                             Toast.makeText(getContext(), result[0], Toast.LENGTH_SHORT).show()
+                            showResultDialog(result[0], true)
                         } else {
                             // 为空表示识别失败
                             LogX.d("result = null")
@@ -96,6 +99,7 @@ class MainActivity : AppCompatActivity() {
                             LogX.d("result$result:$result")
                             if (result != null) {
                                 Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show()
+                                showResultDialog(result, true)
                             }
                         } catch (e: java.lang.Exception) {
                             e.printStackTrace()
@@ -116,7 +120,23 @@ class MainActivity : AppCompatActivity() {
         CameraScan.parseScanResult(intent)?.let {
             Log.d(CameraScan.SCAN_RESULT, it)
             Toast.makeText(getContext(), it, Toast.LENGTH_SHORT).show()
+            showResultDialog(it, false)
         }
+    }
+
+    private fun showResultDialog(result: String?, isFromCameraGallery: Boolean) {
+        result?.let{
+            // 弹窗
+            CommonResultDialog(getContext()).apply {
+                setConfig(DialogConfig().apply {
+                    this.isFromCameraGallery = isFromCameraGallery
+                    content = it
+                    costTime = System.currentTimeMillis() - startTime
+                })
+                show()
+            }
+        }
+
     }
 
     private fun pickPhotoClicked(useWeChatDetect: Boolean) {
@@ -147,7 +167,10 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
 
+        @JvmField
+        var startTime: Long = 0L
         const val REQUEST_CODE_QRCODE = 0x10
         const val REQUEST_CODE_PICK_PHOTO = 0x11
+
     }
 }

@@ -8,6 +8,7 @@ import com.google.zxing.Result;
 import com.king.camera.scan.AnalyzeResult;
 import com.king.camera.scan.CameraScan;
 import com.king.camera.scan.analyze.Analyzer;
+import com.king.wechat.qrcode.app.MainActivity;
 import com.king.wechat.qrcode.app.R;
 import com.king.zxing.DecodeConfig;
 import com.king.zxing.DecodeFormatManager;
@@ -26,6 +27,12 @@ import androidx.annotation.Nullable;
  * <a href="https://github.com/jenly1314">Follow me</a>
  */
 public class QRCodeScanActivity extends BarcodeCameraScanActivity {
+
+    @Override
+    public void initUI() {
+        super.initUI();
+        MainActivity.startTime = System.currentTimeMillis();
+    }
 
     @Override
     public void initCameraScan(@NonNull CameraScan<Result> cameraScan) {
