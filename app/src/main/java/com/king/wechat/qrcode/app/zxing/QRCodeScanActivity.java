@@ -3,6 +3,7 @@ package com.king.wechat.qrcode.app.zxing;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Rect;
 
 import com.google.zxing.Result;
 import com.king.camera.scan.AnalyzeResult;
@@ -10,6 +11,7 @@ import com.king.camera.scan.CameraScan;
 import com.king.camera.scan.analyze.Analyzer;
 import com.king.wechat.qrcode.app.MainActivity;
 import com.king.wechat.qrcode.app.R;
+import com.king.wechat.qrcode.app.ScreenUtils;
 import com.king.zxing.DecodeConfig;
 import com.king.zxing.DecodeFormatManager;
 import com.king.zxing.BarcodeCameraScanActivity;

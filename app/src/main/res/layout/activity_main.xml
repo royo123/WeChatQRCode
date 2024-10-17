@@ -29,17 +29,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnWeChatQRCodeScan" />
-    <Button
-        android:id="@+id/btnWeChatQRCodeDecode"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="微信\n从相册识别二维码"
-        android:textAllCaps="false"
-        android:onClick="onClick"
-        android:layout_marginTop="20dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnZXingFullScreenQRCode" />
+
     <Button
         android:id="@+id/btnZXingQRCode"
         android:layout_width="0dp"
@@ -50,7 +40,19 @@
         android:layout_marginTop="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnWeChatQRCodeDecode" />
+        app:layout_constraintTop_toBottomOf="@+id/btnZXingFullScreenQRCode" />
+
+    <Button
+        android:id="@+id/btnWeChatQRCodeDecode"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="微信\n从相册识别二维码"
+        android:textAllCaps="false"
+        android:onClick="onClick"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnZXingQRCode" />
 
     <Button
         android:id="@+id/btnOpenCVQRCodeDecode"
@@ -62,6 +64,6 @@
         android:layout_marginTop="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnZXingQRCode" />
+        app:layout_constraintTop_toBottomOf="@+id/btnWeChatQRCodeDecode" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

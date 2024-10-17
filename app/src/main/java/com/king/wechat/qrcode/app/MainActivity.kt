@@ -132,6 +132,7 @@ class MainActivity : AppCompatActivity() {
                     this.isFromCameraGallery = isFromCameraGallery
                     content = it
                     costTime = System.currentTimeMillis() - startTime
+                    Log.d("percyspeed", "耗时: " + costTime)
                 })
                 show()
             }
