@@ -1,5 +1,6 @@
 package com.king.zxing.analyze;
 
+import android.content.Context;
 import android.graphics.ImageFormat;
 
 import com.google.zxing.Result;
@@ -24,7 +25,7 @@ import androidx.camera.core.ImageProxy;
  * <a href="https://github.com/jenly1314">Follow me</a>
  */
 public abstract class ImageAnalyzer implements Analyzer<Result> {
-
+    public Context mContext;
     private final Queue<byte[]> queue = new ConcurrentLinkedQueue<>();
 
     private final AtomicBoolean joinQueue = new AtomicBoolean(false);

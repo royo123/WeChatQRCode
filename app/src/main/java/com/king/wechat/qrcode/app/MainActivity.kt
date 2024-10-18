@@ -3,18 +3,27 @@ package com.king.wechat.qrcode.app
 import android.content.Intent
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.InputType
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.camera.core.processing.SurfaceProcessorNode.In
 import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.lifecycleScope
+import com.google.zxing.Result
+import com.huawei.hms.hmsscankit.ScanUtil
+import com.huawei.hms.ml.scan.HmsScan
+import com.huawei.hms.ml.scan.HmsScanFrame
+import com.huawei.hms.ml.scan.HmsScanFrameOptions
 import com.king.camera.scan.CameraScan
 import com.king.logx.LogX
 import com.king.opencv.qrcode.OpenCVQRCodeDetector
 import com.king.wechat.qrcode.WeChatQRCodeDetector
 import com.king.wechat.qrcode.app.dialog.CommonResultDialog
 import com.king.wechat.qrcode.app.dialog.DialogConfig
+import com.king.wechat.qrcode.app.huawei.HuaweiQrCodeActivity
 import com.king.wechat.qrcode.app.zxing.QRCodeScanActivity
 import com.king.zxing.app.FullScreenQRCodeScanActivity
 import com.king.zxing.util.CodeUtils
@@ -41,7 +50,7 @@ class MainActivity : AppCompatActivity() {
     /**
      * 是否使用 WeChatQRCodeDetector 进行检测二维码
      */
-    private var useWeChatDetect = false
+    private var type = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,7 +83,7 @@ class MainActivity : AppCompatActivity() {
                 startTime = System.currentTimeMillis()
                 lifecycleScope.launch {
                     val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, it.data)
-                    if (useWeChatDetect) {
+                    if (type == TYPE_WEIXIN) {
                         val result = withContext(Dispatchers.IO) {
                             // 通过WeChatQRCodeDetector识别图片中的二维码
                             WeChatQRCodeDetector.detectAndDecode(bitmap)
@@ -91,7 +100,27 @@ class MainActivity : AppCompatActivity() {
                             // 为空表示识别失败
                             LogX.d("result = null")
                         }
-                    } else {
+                    } else if (type == TYPE_HUAWEI) {
+                        val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, it.data)
+
+                        val frame: HmsScanFrame = HmsScanFrame(bitmap)
+
+                        // “QRCODE_SCAN_TYPE”和“PDF417_SCAN_TYPE”表示只扫描QR和PDF417的码
+                        val option = HmsScanFrameOptions.Creator().setHmsScanTypes(HmsScan.QRCODE_SCAN_TYPE)
+                                .setMultiMode(false).setParseResult(true).setPhotoMode(true).create()
+                        val result = ScanUtil.decode(getContext(), frame, option)
+                        val hmsScans = result.hmsScans
+
+                        // 扫码成功时处理解码结果
+                        if (hmsScans != null && hmsScans.size > 0 && !TextUtils.isEmpty(hmsScans[0].getOriginalValue())) {
+                            // 展示扫码结果
+                            for (i in hmsScans.indices) {
+                                Toast.makeText(getContext(), hmsScans[0].getOriginalValue(), Toast.LENGTH_SHORT).show()
+                                showResultDialog(hmsScans[0].getOriginalValue(), true)
+                            }
+                        }
+
+                    }else{
                         // zxing 识别
                         try {
                             val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, data.data)
@@ -140,8 +169,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun pickPhotoClicked(useWeChatDetect: Boolean) {
-        this.useWeChatDetect = useWeChatDetect
+    private fun pickPhotoClicked(type:  Int) {
+        this.type = type
         startPickPhoto()
     }
 
@@ -160,9 +189,11 @@ class MainActivity : AppCompatActivity() {
         when (view.id) {
             R.id.btnWeChatQRCodeScan -> startActivityForResult(WeChatQRCodeActivity::class.java)
             R.id.btnZXingFullScreenQRCode -> startActivityForResult(FullScreenQRCodeScanActivity::class.java)
-            R.id.btnWeChatQRCodeDecode -> pickPhotoClicked(true)
+            R.id.btnWeChatQRCodeDecode -> pickPhotoClicked(TYPE_WEIXIN)
             R.id.btnZXingQRCode -> startActivityForResult(QRCodeScanActivity::class.java)
-            R.id.btnOpenCVQRCodeDecode -> pickPhotoClicked(false)
+            R.id.btnOpenCVQRCodeDecode -> pickPhotoClicked(TYPE_ZXING)
+            R.id.btnHuaweiQRCodeDecode -> startActivityForResult(HuaweiQrCodeActivity::class.java)
+            R.id.btnHuaweiGalleryDecode -> pickPhotoClicked(TYPE_HUAWEI)
         }
     }
 
@@ -173,5 +204,8 @@ class MainActivity : AppCompatActivity() {
         const val REQUEST_CODE_QRCODE = 0x10
         const val REQUEST_CODE_PICK_PHOTO = 0x11
 
+        val TYPE_WEIXIN = 0
+        val TYPE_HUAWEI = 1
+        val TYPE_ZXING = 2
     }
 }

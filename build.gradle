@@ -16,6 +16,8 @@ allprojects {
         maven { url 'https://maven.aliyun.com/repository/public' }
         maven { url 'https://maven.aliyun.com/repository/google' }
         maven { url 'https://maven.aliyun.com/repository/central' }
+        // 配置HMS Core SDK的Maven仓地址。
+        maven {url 'https://developer.huawei.com/repo/'}
         google()
         mavenCentral()
     }
